@@ -1,0 +1,129 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f4f6;
+  --fg: #222;
+  --card: #fff;
+  --border: #ddd;
+  --input-border: #ccc;
+  --hover: #eee;
+  --muted: #666;
+  --done: #888;
+  --danger: #c62828;
+  --active-bg: #333;
+  --active-fg: #fff;
+  --high: #c62828;
+  --medium: #e08a00;
+  --low: #2e7d32;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #16171a;
+  --fg: #e8e8ea;
+  --card: #22242a;
+  --border: #33363d;
+  --input-border: #4a4d55;
+  --hover: #2d3038;
+  --muted: #a0a3ab;
+  --done: #777a82;
+  --danger: #ef6b6b;
+  --active-bg: #e8e8ea;
+  --active-fg: #16171a;
+  --high: #ef6b6b;
+  --medium: #f0b040;
+  --low: #5fbf6a;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { font-family: system-ui, sans-serif; font-size: 16px; background: var(--bg); color: var(--fg); margin: 0; -webkit-tap-highlight-color: transparent; }
+main { max-width: 600px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+header { display: flex; justify-content: space-between; align-items: center; }
+h1 { margin: 0; }
+form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+#text-input { flex: 1 1 200px; min-width: 0; }
+input, select, button { font: inherit; padding: 8px; border: 1px solid var(--input-border); border-radius: 6px; background: var(--card); color: var(--fg); }
+button { cursor: pointer; touch-action: manipulation; }
+@media (hover: hover) {
+  button:hover { background: var(--hover); }
+}
+:focus-visible { outline: 2px solid var(--medium); outline-offset: 2px; }
+textarea { font: inherit; padding: 8px; border: 1px solid var(--input-border); border-radius: 6px; background: var(--card); color: var(--fg); resize: vertical; }
+#note-input { flex: 1 1 100%; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 8px; }
+.filters { display: flex; gap: 6px; margin-right: auto; }
+.filters button.active { background: var(--active-bg); color: var(--active-fg); border-color: var(--active-bg); }
+ul { list-style: none; padding: 0; margin: 0; }
+li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--medium); border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; }
+li.p-high { border-left-color: var(--high); }
+li.p-medium { border-left-color: var(--medium); }
+li.p-low { border-left-color: var(--low); }
+li .text { flex: 1; word-break: break-word; }
+li.done .text { text-decoration: line-through; color: var(--done); }
+li .badge { font-size: .75em; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+li.p-high .badge { color: var(--high); }
+li.p-medium .badge { color: var(--medium); }
+li.p-low .badge { color: var(--low); }
+li .due { font-size: .85em; color: var(--muted); }
+li .due.overdue { color: var(--danger); font-weight: 600; }
+li .edit { flex: 1; }
+li .note, li .note-edit { flex: 1 1 100%; }
+li .note { font-size: .9em; color: var(--muted); white-space: pre-wrap; word-break: break-word; padding-left: 26px; }
+li .pen { border: none; background: none; padding: 0 6px; }
+#theme-toggle { font-size: 1.2em; line-height: 1; }
+li .delete { border: none; background: none; color: var(--danger); font-size: 1.2em; padding: 0 6px; }
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-top: 12px; color: var(--muted); }
+.footer-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+#search { width: 100%; margin-top: 16px; }
+li.empty { justify-content: center; color: var(--muted); border-left-color: var(--border); }
+li .priority-edit, li .due-edit { padding: 4px; }
+#toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%); max-width: calc(100% - 32px); width: max-content; display: flex; align-items: center; gap: 12px; background: var(--active-bg); color: var(--active-fg); padding: 10px 14px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, .3); }
+#toast[hidden] { display: none; }
+#toast button { background: none; color: inherit; border: 1px solid currentColor; padding: 4px 10px; }
+@media (hover: hover) {
+  #toast button:hover { background: rgba(128, 128, 128, .3); }
+}
+
+/* Touch devices: comfortable tap targets, and 16px text so iOS doesn't zoom on focus */
+@media (pointer: coarse) {
+  input:not([type="checkbox"]), select, button, textarea { min-height: 44px; font-size: 16px; }
+  li input[type="checkbox"] { width: 24px; height: 24px; min-height: 0; margin: 0 4px; }
+  li .pen, li .delete { min-width: 44px; padding: 0; }
+  #theme-toggle { min-width: 44px; }
+}
+
+li.dragging { opacity: 0.5; }
+li.drag-over { border-top: 2px solid var(--medium); }
+li.timeline-section { background: none; border: none; padding: 12px 0 4px; margin: 8px 0 6px; cursor: default; }
+li.timeline-section:first-child { margin-top: 0; }
+li.timeline-section .timeline-label { font-weight: 600; font-size: 0.95em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+
+/* Phones */
+@media (max-width: 520px) {
+  h1 { font-size: 1.6rem; }
+
+  #text-input { flex: 1 1 100%; }
+  #priority-input { flex: 1 1 0; min-width: 0; }
+  #due-input { flex: 1.4 1 0; min-width: 0; }
+  form > button[type="submit"] { flex: 1 1 0; }
+
+  .filters { flex: 1 1 100%; margin-right: 0; }
+  .filters button { flex: 1; }
+  .controls select { flex: 1 1 0; min-width: 0; }
+
+  /* Task row: [check] text [pen] [x] on top; priority, due date and note beneath */
+  li { row-gap: 2px; padding: 6px 4px 8px 8px; }
+  li .text, li .edit { order: 1; flex: 1 1 0; min-width: 0; }
+  li input.toggle { order: 0; }
+  li .pen { order: 2; }
+  li .delete { order: 3; }
+  li::after { content: ""; flex-basis: 100%; height: 0; order: 4; }
+  li .badge, li .due, li .priority-edit, li .due-edit { order: 5; }
+  li .badge, li .priority-edit { margin-left: 36px; }
+  li .note, li .note-edit { order: 6; padding-left: 36px; padding-right: 8px; }
+  li .note-edit { margin: 4px 8px 0 36px; padding-left: 8px; flex-basis: calc(100% - 44px); }
+
+  footer { flex-direction: column; align-items: stretch; text-align: center; }
+  .footer-actions { width: 100%; }
+  .footer-actions button { flex: 1; }
+
+  #toast { width: calc(100% - 32px); justify-content: space-between; }
+}

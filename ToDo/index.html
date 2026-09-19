@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f4f6">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-ancestors 'none'">
+  <title>To Do</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>To Do</h1>
+      <button id="theme-toggle" type="button" title="Toggle dark mode" aria-label="Toggle dark mode">&#127769;</button>
+    </header>
+    <form id="add-form">
+      <input id="text-input" type="text" placeholder="What needs doing?" autocomplete="off" maxlength="500" required>
+      <select id="priority-input" title="Priority">
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <input id="due-input" type="date" title="Due date (optional)">
+      <button type="submit">Add</button>
+      <textarea id="note-input" rows="2" placeholder="Note (optional)" maxlength="2000"></textarea>
+    </form>
+    <input id="search" type="search" placeholder="Search tasks and notes" aria-label="Search tasks and notes" autocomplete="off">
+    <div class="controls">
+      <div class="filters" id="filters">
+        <button data-filter="all" class="active">All</button>
+        <button data-filter="active">Active</button>
+        <button data-filter="done">Done</button>
+      </div>
+      <select id="priority-filter" title="Filter by priority" aria-label="Filter by priority">
+        <option value="all">All priorities</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <select id="sort" title="Sort" aria-label="Sort">
+        <option value="added">Sort: added order</option>
+        <option value="high">Sort: high priority first</option>
+        <option value="low">Sort: low priority first</option>
+        <option value="due">Sort: earliest due date first</option>
+      </select>
+      <button id="view-toggle" type="button" title="Toggle view (V)" aria-label="Toggle list/timeline view">📋</button>
+    </div>
+    <ul id="list"></ul>
+    <footer>
+      <span id="count"></span>
+      <div class="footer-actions">
+        <button id="export" type="button" title="Download a backup file">Export</button>
+        <button id="import" type="button" title="Restore from a backup file">Import</button>
+        <button id="clear" type="button">Clear completed</button>
+      </div>
+      <input id="import-file" type="file" accept="application/json,.json" hidden>
+    </footer>
+    <div id="toast" role="status" hidden>
+      <span id="toast-msg"></span>
+      <button id="undo" type="button">Undo</button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
