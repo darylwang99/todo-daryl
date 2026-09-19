@@ -14,6 +14,7 @@
   --high: #c62828;
   --medium: #e08a00;
   --low: #2e7d32;
+  --heading: #1565c0;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -31,13 +32,14 @@
   --high: #ef6b6b;
   --medium: #f0b040;
   --low: #5fbf6a;
+  --heading: #6ab0ff;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { font-family: system-ui, sans-serif; font-size: 16px; background: var(--bg); color: var(--fg); margin: 0; -webkit-tap-highlight-color: transparent; }
 main { max-width: 600px; margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
 header { display: flex; justify-content: space-between; align-items: center; }
-h1 { margin: 0; }
+h1 { margin: 0; color: var(--heading); }
 form { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 #text-input { flex: 1 1 200px; min-width: 0; }
 input, select, button { font: inherit; padding: 8px; border: 1px solid var(--input-border); border-radius: 6px; background: var(--card); color: var(--fg); }
